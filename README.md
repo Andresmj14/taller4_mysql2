@@ -1,5 +1,10 @@
+# 🧾 Actividad: Uso de EVENTOS en MySQL
 
-## 🧾 Tablas Utilizadas
+A continuación se detallan distintos ejemplos del uso de **EVENTOS** en MySQL utilizando las tablas `resumen_ventas` y `alerta_stock`, aplicando tanto `ON COMPLETION PRESERVE` como `ON COMPLETION NOT PRESERVE`.
+
+---
+
+## 📊 Tablas Utilizadas
 
 ```sql
 CREATE TABLE IF NOT EXISTS resumen_ventas (
@@ -17,12 +22,16 @@ CREATE TABLE IF NOT EXISTS alerta_stock (
     creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (ingrediente_id) REFERENCES ingrediente(id)
 );
-1️⃣ Resumen Diario Único
-Objetivo: Crear un evento que genere un resumen de ventas una sola vez al finalizar el día anterior y se elimine automáticamente.
+```
 
-sql
-Copiar
-Editar
+---
+
+## 1️⃣ Resumen Diario Único
+
+**🎯 Objetivo:**  
+Crear un evento que genere un resumen de ventas una sola vez al finalizar el día anterior y luego se elimine automáticamente.
+
+```sql
 DELIMITER //
 
 CREATE PROCEDURE GenerarResumenDiario()
@@ -50,12 +59,16 @@ DO
 //
 
 DELIMITER ;
-2️⃣ Resumen Semanal Recurrente
-Objetivo: Cada lunes a la 01:00 AM, generar el resumen semanal, manteniendo el evento activo indefinidamente.
+```
 
-sql
-Copiar
-Editar
+---
+
+## 2️⃣ Resumen Semanal Recurrente
+
+**🎯 Objetivo:**  
+Generar un resumen de pedidos semanal cada lunes a la 01:00 AM, manteniendo el evento activo de forma indefinida.
+
+```sql
 CREATE TABLE IF NOT EXISTS resumen_semanal (
     semana_inicio DATE PRIMARY KEY,
     total_pedidos INT,
@@ -93,12 +106,16 @@ DO
 //
 
 DELIMITER ;
-3️⃣ Alerta de Stock Bajo Única
-Objetivo: Ejecutar una única vez para insertar alertas de ingredientes con stock menor a 5 y autodestruirse.
+```
 
-sql
-Copiar
-Editar
+---
+
+## 3️⃣ Alerta de Stock Bajo Única
+
+**🎯 Objetivo:**  
+Ejecutar una sola vez para insertar alertas en la tabla `alerta_stock` si hay ingredientes con `stock < 5`. El evento se elimina automáticamente tras su ejecución.
+
+```sql
 DELIMITER //
 
 CREATE PROCEDURE ComprobarStock()
@@ -123,12 +140,16 @@ DO
 //
 
 DELIMITER ;
-4️⃣ Monitoreo Continuo de Stock
-Objetivo: Revisar cada 30 minutos los ingredientes con stock menor a 10 e insertar alertas sin eliminar el evento.
+```
 
-sql
-Copiar
-Editar
+---
+
+## 4️⃣ Monitoreo Continuo de Stock
+
+**🎯 Objetivo:**  
+Revisar cada 30 minutos los ingredientes con `stock < 10` e insertar alertas. Este evento se mantiene activo de forma indefinida.
+
+```sql
 DELIMITER //
 
 CREATE PROCEDURE monitoreo_stock()
@@ -155,3 +176,4 @@ DO
 //
 
 DELIMITER ;
+```
