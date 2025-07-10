@@ -1,5 +1,3 @@
-# taller4_mysql2
-
 # 🛠️ Actividad: Manejo de Eventos en MySQL - Base de Datos de Pizzería 🍕
 
 ## 🧾 Tablas Utilizadas
