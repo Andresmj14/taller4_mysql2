@@ -1,4 +1,3 @@
-# 🛠️ Actividad: Manejo de Eventos en MySQL - Base de Datos de Pizzería 🍕
 
 ## 🧾 Tablas Utilizadas
 
